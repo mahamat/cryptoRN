@@ -4,10 +4,8 @@ cryptoRN is a React Native application that allows you to keep track of the appr
 
 # Snapshots
 
-<img src="screen1.PNG" width="350px" />
-<img src="screen2.PNG" width="350px" />
-<img src="screen3.PNG" width="350px" />
-<img src="screen4.PNG" width="350px" />
+<img src="screen1.PNG" width="300px" /> <img src="screen2.PNG" width="300px" />
+<img src="screen3.PNG" width="300px" /> <img src="screen4.PNG" width="300px" />
 
 ## License
 
