@@ -7,6 +7,15 @@ export default class Holdings extends Component {
   renderHolding = (item, i) => {
     const swipeoutBtns = [
       {
+        text: 'EDIT',
+        backgroundColor: 'green',
+        color: '#ffffff',
+        underlayColor: 'green',
+        onPress: () => {
+          this.props.onEditItem(item);
+        }
+      },
+      {
         text: 'DEL',
         backgroundColor: '#FE2A57',
         color: '#ffffff',

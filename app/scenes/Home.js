@@ -42,10 +42,15 @@ class Home extends Component {
     dispatch(actionCreators.fetchData());
   }
 
-  removeItem = id => {
+  removeItem = item => {
     const { dispatch } = this.props;
-    dispatch(actionCreators.removeItem(id));
+    dispatch(actionCreators.removeItem(item));
   };
+
+  editItem = item => {
+    const { navigation } = this.props;
+    navigation.navigate('AddCoin', item);
+  }
 
   refreshData = () => {
     const { dispatch } = this.props;
@@ -78,7 +83,7 @@ class Home extends Component {
             <RefreshControl refreshing={isUpdating} onRefresh={this.refreshData} />
           }
         >
-          <Holdings items={coins} onRemoveItem={this.removeItem} />
+          <Holdings items={coins} onRemoveItem={this.removeItem} onEditItem={this.editItem} />
         </ScrollView>
         <View style={styles.footer}>
           <Text style={styles.footerText}>

@@ -3,6 +3,7 @@ import { getPrice } from '../api/cryptonator';
 
 const types = {
   ADD_COIN: '[Coin] Add Coin',
+  EDIT_COIN: '[Coin] Edit Coin',
   REMOVE_COIN: '[Coin] Remove Coin',
   FETCH_DATA_PENDING: '[Coin] Fetch Data Pending',
   FETCH_DATA_SUCCESS: '[Coin] Fetch Data Success',
@@ -11,6 +12,9 @@ const types = {
 
 export const actionCreators = {
   fetchData: () => (dispatch, getState) => {
+
+    if ((Date.now() - getState().holdings.timestamp) < 60000) return;
+
     dispatch({ type: types.FETCH_DATA_PENDING, timestamp: Date.now() });
     const { entities } = getState().holdings;
     const entitiesArray = Object.keys(entities).map(id => entities[id]);
@@ -43,6 +47,9 @@ export const actionCreators = {
   addCoin: coin => {
     return { type: types.ADD_COIN, payload: { id: uuid.v4(), ...coin } };
   },
+  editCoin: coin => {
+    return { type: types.EDIT_COIN, payload: coin };
+  },
   removeItem: coin => {
     return { type: types.REMOVE_COIN, payload: coin };
   }
@@ -58,6 +65,7 @@ export default function(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case types.EDIT_COIN:
     case types.ADD_COIN: {
       const entities = {
         ...state.entities,

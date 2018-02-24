@@ -31,17 +31,35 @@ class AddCoin extends Component {
     )
   });
 
-  state = {
-    holding: {
-      code: '',
-      currency: '',
-      amount: 0
-    },
-    checkingValidity: false,
-    cryptoUnavailable: false
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      holding: {
+        code: '',
+        currency: '',
+        amount: 0
+      },
+      mode: 'ADD',
+      checkingValidity: false,
+      cryptoUnavailable: false
+    };
+
+    const coin = this.props.navigation.state.params;
+
+    if (coin) {
+      this.state = {
+        ...this.state,
+        mode: 'EDIT',
+        holding: {
+          ...coin,
+        }
+      };
+    }
+  }
 
   addCoin = async () => {
+
     const { dispatch, navigation } = this.props;
     const { code, currency, amount } = this.state.holding;
 
@@ -53,9 +71,19 @@ class AddCoin extends Component {
     this.setState({ checkingValidity: false });
     if (success) {
       this.setState(
-        { holding: { ...this.state.holding, price: parseFloat(ticker.price) } },
+        {
+          holding: {
+            ...this.state.holding,
+            price: parseFloat(ticker.price),
+          }
+        },
         () => {
-          dispatch(actionCreators.addCoin(this.state.holding));
+          if (this.state.mode == 'ADD') {
+            dispatch(actionCreators.addCoin(this.state.holding));
+          } else {
+            console.log(this.state.holding);
+            dispatch(actionCreators.editCoin(this.state.holding));
+          }
           navigation.goBack();
         }
       );
@@ -99,6 +127,7 @@ class AddCoin extends Component {
               this.setState({ holding: { ...this.state.holding, code: text } })
             }
             placeholder="(e.g. btc, ltc, eth)"
+            defaultValue={this.state.holding.code}
           />
 
           <Input
@@ -108,6 +137,7 @@ class AddCoin extends Component {
                 holding: { ...this.state.holding, currency: text }
               })
             }
+            defaultValue={this.state.holding.currency}
             placeholder="(e.g. usd, cad, aud)"
           />
           <Input
@@ -117,10 +147,11 @@ class AddCoin extends Component {
                 holding: { ...this.state.holding, amount: Number(text) }
               })
             }
+            defaultValue={this.state.holding.amount.toString()}
           />
           <SubmitButton onPress={this.addCoin}>SUBMIT</SubmitButton>
         </ScrollView>
-        <KeyboardSpacer/>
+        <KeyboardSpacer />
       </View>
     );
   }
