@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
 import Swipeout from 'react-native-swipeout';
 
 export default class Holdings extends Component {
+  static propTypes = {
+    items: PropTypes.object.isRequired
+  } 
 
   renderHolding = (item, i) => {
     const swipeoutBtns = [
