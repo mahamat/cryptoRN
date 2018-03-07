@@ -1,8 +1,16 @@
-import React, { Component } from 'react';
+//@flow
+
+import * as React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function ({ icon, onPress, style }) {
+type Props = {
+  icon: string,
+  onPress: Function,
+  style?: Object
+};
+
+export default function({ icon, onPress, style }:Props) {
   return (
     <TouchableOpacity style={style} onPress={onPress}>
       <Icon name={icon} style={styles.icon} />

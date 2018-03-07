@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "flow": "flow"
   },
   "dependencies": {
+    "prop-types": "^15.6.1",
     "react": "16.2.0",
     "react-native": "0.52.1",
     "react-native-keyboard-spacer": "^0.4.1",
@@ -22,6 +24,7 @@
   "devDependencies": {
     "babel-jest": "22.1.0",
     "babel-preset-react-native": "4.0.0",
+    "flow-bin": "^0.61.0",
     "jest": "22.1.4",
     "jest-react-native": "^18.0.0",
     "react-test-renderer": "16.2.0",

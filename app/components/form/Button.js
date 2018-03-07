@@ -1,8 +1,14 @@
-import React, { Component } from 'react';
+//@flow
+import * as React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function({ children, onPress }) {
+type Props = {
+  children: React.Node,
+  onPress: Function,
+};
+
+export default function({ children, onPress }: Props) {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text style={styles.text}>{children}</Text>
